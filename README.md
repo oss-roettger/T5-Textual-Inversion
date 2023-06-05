@@ -35,13 +35,13 @@ Load the T5 Embedding to a single token (e.g. "my") and use it in the standard D
 * Copy the [*T5_Inversion.ipynb*](./T5_Inversion.ipynb) notebook into your DeepFloyd IF environment. All you need is in the small notebook.
 * Set the paths to your local models at the top of the notebook. Restart and run all!
 * The t5-v1_1-xxl/IF-I-M-v1.0 models in training mode closely fit into 24 GB CUDA memory.
-* If you run into out of memory errors, try to remove the "safety_checker" & "watermarker" from the "model_index.json" files to save up some memory (see template in this repository).
+* If you run into out of memory errors, try to remove the "safety_checker" & "watermarker" from the "model_index.json" files to save up some memory (see [template](./model_index.json) in this repository).
 
 ## Issues
 * Since DeepFloyd IF uses a puny 64x64 pixel resolution in Stage_I, the results are not as good as textual inversion for stable diffusion, but far better than expected.
 * I haven't explored all parameter combinations yet - especially the learning rates are tricky. Take this implementation as a starting point for your own experiments.
 * T5 embeddings trained with the small IF-I-M-v1.0 model generate good images with the same Stage_I model only! You can try those with the XL model, but you will see other results.
-* If you get totally blurred results, DeepFlod IF has detected "nudity". You can remove line 226 in /deepfloyd_if/modules/base.py #sample = self.__validate_generations(sample) to prevent that.
+* If you get totally blurred results, DeepFloyd IF has detected "nudity". You can remove line 226 in /deepfloyd_if/modules/base.py #sample = self.__validate_generations(sample) to prevent that.
 * I couldn't try out the T5 Inversion with the IF-I-XL-v1.0 model due to CUDA memory restrictions. Maybe there is someone out there with a RTX6000, A100 or H100? Feedback welcome!
 
 
