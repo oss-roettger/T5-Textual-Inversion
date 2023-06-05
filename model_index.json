@@ -1,0 +1,26 @@
+{
+  "_class_name": "IFPipeline",
+  "_diffusers_version": "0.16.0.dev0",
+  "_ignore_files": ["pytorch_model.bin"],
+  "feature_extractor": [
+    "transformers",
+    "CLIPImageProcessor"
+  ],
+  "requires_safety_checker": false,
+  "scheduler": [
+    "diffusers",
+    "DDPMScheduler"
+  ],
+  "text_encoder": [
+    "transformers",
+    "T5EncoderModel"
+  ],
+  "tokenizer": [
+    "transformers",
+    "T5Tokenizer"
+  ],
+  "unet": [
+    "diffusers",
+    "UNet2DConditionModel"
+  ]
+}
