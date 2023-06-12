@@ -15,17 +15,59 @@ Run the notebook to generate and save the T5 Embedding for your images. It takes
 ## T5 Embedding ➡ Deep Floyd IF Dream Pipeline
 Load the T5 Embedding to a single token (e.g. "my") and use it in the standard DeepFloyd IF dream prompts.  
 
+    def set_embedding(t5,emb,word="my"):
+    with torch.no_grad():
+        tokens=t5.tokenizer(word,max_length=77,padding='max_length',truncation=True,return_attention_mask=False,add_special_tokens=True,return_tensors='pt')
+        assert tokens['input_ids'][0][1]==1, 'word is more then one token'
+        tokenNo=tokens['input_ids'][0][0]
+        assert t5.model.shared.weight[tokenNo].shape==emb.shape, 'wrong dimension of embedding'
+        t5.model.shared.weight[tokenNo]=emb.to(t5.device)
+
+    def load_embedding(t5,word="my",embedding_file="myToken.pt",no=0,path="./Embeddings/"):
+        emb=torch.load(path+embedding_file)
+        set_embedding(t5,emb,word)
+
     load_embedding(t5,word="my",embedding_file="myPuppet.pt",path="./Embeddings/")
-    prompts=["a photo of {} woman at the beach".format("my")]
+    prompt="a photo of my at the beach"
 
 <table style="width: 100%">
 <tr>
-    <td colspan=2><img src="./samples/2a.png" alt="" height=128 width=128 border=3></img></td>
-    <td colspan=2><img src="./samples/2b.png" alt="" height=128 width=128 border=3></img></td>
-    <td colspan=2><img src="./samples/2c.png" alt="" height=128 width=128 border=3></img></td>
-    <td colspan=2><img src="./samples/2d.png" alt="" height=128 width=128 border=3></img></td>
+    <td colspan=2><img src="./samples/58.png" alt="" height=128 width=128 border=3></img></td>
+    <td colspan=2><img src="./samples/36.png" alt="" height=128 width=128 border=3></img></td>
+    <td colspan=2><img src="./samples/44.png" alt="" height=128 width=128 border=3></img></td>
+    <td colspan=2><img src="./samples/57.png" alt="" height=128 width=128 border=3></img></td>
     </tr>
 </table>
+
+## Better results with more input images and more training steps
+The myNN.pt embedding was trained on 33 neural network images with  
+learning_rates=[(50,0.5),(100,0.4),(200,0.3),(500,0.2),(2000,0.1),(2000,0.05)]
+
+    load_embedding(t5,word="it",embedding_file="myNN.pt",path="./Embeddings/")
+    prompt="a photo of it"
+
+
+<table style="width: 100%">
+<tr>
+    <td colspan=2><img src="./samples/50.png" alt="" height=128 width=128 border=3></img></td>
+    <td colspan=2><img src="./samples/53.png" alt="" height=128 width=128 border=3></img></td>
+    <td colspan=2><img src="./samples/54.png" alt="" height=128 width=128 border=3></img></td>
+    <td colspan=2><img src="./samples/55.png" alt="" height=128 width=128 border=3></img></td>
+    </tr>
+</table>
+
+    prompt="a photo of a head made of it"
+
+<table style="width: 100%">
+<tr>
+    <td colspan=2><img src="./samples/77.png" alt="" height=128 width=128 border=3></img></td>
+    <td colspan=2><img src="./samples/61.png" alt="" height=128 width=128 border=3></img></td>
+    <td colspan=2><img src="./samples/63.png" alt="" height=128 width=128 border=3></img></td>
+    <td colspan=2><img src="./samples/71.png" alt="" height=128 width=128 border=3></img></td>
+    </tr>
+</table>
+
+    
 
 ## Prerequisites
 * A working  [DeepFloyd IF](https://github.com/deep-floyd/IF) environment
@@ -35,12 +77,13 @@ Load the T5 Embedding to a single token (e.g. "my") and use it in the standard D
 * Copy the [*T5_Inversion.ipynb*](./T5_Inversion.ipynb) notebook into your DeepFloyd IF environment. All you need is in the small notebook.
 * Set the paths to your local models at the top of the notebook. Restart and run all!
 * The t5-v1_1-xxl/IF-I-M-v1.0 models in training mode closely fit into 24 GB CUDA memory.
-* If you run into out of memory errors, try T5 Inversion without "safety_checker" & "watermarker" in "model_index.json" to save up some memory (see [template](./model_index.json) in this repository).
+* If you run into out of memory errors, try to remove the "safety_checker" & "watermarker" from the "model_index.json" files to save up some memory (see template in this repository).
 
 ## Issues
 * Since DeepFloyd IF uses a puny 64x64 pixel resolution in Stage_I, the results are not as good as textual inversion for stable diffusion, but far better than expected.
 * I haven't explored all parameter combinations yet - especially the learning rates are tricky. Take this implementation as a starting point for your own experiments.
-* If you get totally blurred results, DeepFloyd IF has detected "nudity" in /deepfloyd_if/modules/base.py (226) #sample = self.__validate_generations(sample).
+* T5 embeddings trained with the small IF-I-M-v1.0 model generate good images with the same Stage_I model only! You can try those with the XL model, but you will see other results.
+* If you get totally blurred results, DeepFlod IF has detected "nudity". You can remove line 226 in /deepfloyd_if/modules/base.py #sample = self.__validate_generations(sample) to prevent that.
 * I couldn't try out the T5 Inversion with the IF-I-XL-v1.0 model due to CUDA memory restrictions. Maybe there is someone out there with a RTX6000, A100 or H100? Feedback welcome!
 
 
