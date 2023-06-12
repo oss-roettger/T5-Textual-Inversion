@@ -82,8 +82,7 @@ learning_rates=[(50,0.5),(100,0.4),(200,0.3),(500,0.2),(2000,0.1),(2000,0.05)]
 ## Issues
 * Since DeepFloyd IF uses a puny 64x64 pixel resolution in Stage_I, the results are not as good as textual inversion for stable diffusion, but far better than expected.
 * I haven't explored all parameter combinations yet - especially the learning rates are tricky. Take this implementation as a starting point for your own experiments.
-* T5 embeddings trained with the small IF-I-M-v1.0 model generate good images with the same Stage_I model only! You can try those with the XL model, but you will see other results.
-* If you get totally blurred results, DeepFlod IF has detected "nudity". You can remove line 226 in /deepfloyd_if/modules/base.py #sample = self.__validate_generations(sample) to prevent that.
+* If you get totally blurred results, DeepFlod IF has detected "nudity" in /deepfloyd_if/modules/base.py (226) sample = self.__validate_generations(sample).
 * I couldn't try out the T5 Inversion with the IF-I-XL-v1.0 model due to CUDA memory restrictions. Maybe there is someone out there with a RTX6000, A100 or H100? Feedback welcome!
 
 
