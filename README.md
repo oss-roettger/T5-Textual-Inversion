@@ -40,8 +40,8 @@ Load the T5 Embedding to a single token (e.g. "my") and use it in the standard D
 </table>
 
 ## Better results with more input images and more training steps
-The myNN.pt embedding was trained on 33 neural network images with  
-learning_rates=[(50,0.5),(100,0.4),(200,0.3),(500,0.2),(2000,0.1),(2000,0.05)]
+### The myNN.pt embedding was trained on 33 neural network images
+with learning_rates=[(50,0.5),(100,0.4),(200,0.3),(500,0.2),(2000,0.1),(2000,0.05)]
 
     load_embedding(t5,word="it",embedding_file="myNN.pt",path="./Embeddings/")
     prompt="a photo of it"
@@ -67,8 +67,8 @@ learning_rates=[(50,0.5),(100,0.4),(200,0.3),(500,0.2),(2000,0.1),(2000,0.05)]
     </tr>
 </table>
 
-The myMolecule.pt embedding was trained on 200 ball-and-stick model images with  
-learning_rates=[(50,0.5),(100,0.4),(200,0.3),(500,0.2),(2000,0.1),(2000,0.05)]
+### The myMolecule.pt embedding was trained on 200 ball-and-stick model images
+with learning_rates=[(50,0.5),(100,0.4),(200,0.3),(500,0.2),(2000,0.1),(2000,0.05)]
 
     load_embedding(t5,word="that",embedding_file="myMolecule.pt",path="./Embeddings/")
     prompt="3D rendering of that"
