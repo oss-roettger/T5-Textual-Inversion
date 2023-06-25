@@ -1,7 +1,7 @@
 # T5 Textual Inversion for [DeepFloyd IF](https://github.com/deep-floyd/IF) on a 24 GB GPU
 [*T5_Inversion.ipynb*](./T5_Inversion.ipynb) is **Copyright © 2023 [HANS ROETTGER](mailto:oss.roettger@posteo.org)** and distributed under the terms of **[AGPLv3](https://www.gnu.org/licenses/agpl-3.0.html)**.  
 
-This is an implementation of the textual inversion algorithm to incorporate your own objects, faces, logos or styles into DeepFloyd IF. Input: a couple of original images. Output: an embedding for a single token, that can be used in the standard DeepFloyd IF dream pipeline to generate your artefacts.
+This is an implementation of the textual inversion algorithm to incorporate your own objects, faces, logos or styles into DeepFloyd IF. Input: a couple of original images. Output: an T5 embedding for a single token, that can be used in the standard DeepFloyd IF dream pipeline to generate your artefacts.
 
 **I know you don't care about copyright, but at least leave me a ⭐ star in the top right!**
 
@@ -39,7 +39,7 @@ Load the T5 Embedding to a single token (e.g. "my") and use it in the standard D
 </table>
 
 ## Better results with more input images and more training steps
-### The myNN.pt embedding was trained on 33 neural network images
+### The [myNN.pt](./Embeddings/myNN.pt) embedding was trained on 33 neural network images
 with learning_rates=[(50,0.5),(100,0.4),(200,0.3),(500,0.2),(2000,0.1),(2000,0.05)]
 
     load_embedding(t5,word="it",embedding_file="myNN.pt",path="./Embeddings/")
@@ -66,7 +66,7 @@ with learning_rates=[(50,0.5),(100,0.4),(200,0.3),(500,0.2),(2000,0.1),(2000,0.0
     </tr>
 </table>
 
-### The myMolecule.pt embedding was trained on 200 ball-and-stick model images
+### The [myMolecule.pt](./Embeddings/myMolecule.pt) embedding was trained on 200 ball-and-stick model images
 with learning_rates=[(50,0.5),(100,0.4),(200,0.3),(500,0.2),(2000,0.1),(2000,0.05)]
 
     load_embedding(t5,word="that",embedding_file="myMolecule.pt",path="./Embeddings/")
