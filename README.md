@@ -1,7 +1,7 @@
 # T5 Textual Inversion for [DeepFloyd IF](https://github.com/deep-floyd/IF) on a 24 GB GPU
 [*T5_Inversion.ipynb*](./T5_Inversion.ipynb) is **Copyright © 2023 [HANS ROETTGER](mailto:oss.roettger@posteo.org)** and distributed under the terms of **[AGPLv3](https://www.gnu.org/licenses/agpl-3.0.html)**.  
 
-This is an implementation of the textual inversion algorithm to incorporate your own objects, faces, logos or styles into DeepFloyd IF. Input: a couple of original images. Output: an T5 embedding for a single token, that can be used in the standard DeepFloyd IF dream pipeline to generate your artefacts.
+This is an implementation of the textual inversion algorithm to incorporate your own objects, faces, logos or styles into DeepFloyd IF. Input: a couple of original images. Output: an T5 embedding for a single token, that can be used in the standard DeepFloyd IF dream pipeline to generate your artefacts. Also available: [implementation variant for Stable Diffusion XL](https://github.com/oss-roettger/XL-Textual-Inversion).
 
 **I know you don't care about copyright, but at least leave me a ⭐ star in the top right!**
 
